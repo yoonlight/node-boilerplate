@@ -1,7 +1,5 @@
 const amqp = require('amqplib')
-const EventEmitter = require('events')
 
-const myEmitter = new EventEmitter();
 const open = amqp.connect(process.env.MQ_URL);
 
 async function mq(body) {
@@ -18,6 +16,4 @@ async function mq(body) {
   }  
 }
 
-myEmitter.on('MQ', mq);
-
-module.exports = myEmitter
+module.exports = mq

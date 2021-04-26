@@ -1,5 +1,5 @@
 const express = require('express')
-const myEmitter = require('../event/mq')
+const myEmitter = require('../event')
 
 const router = express.Router()
 

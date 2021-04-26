@@ -1,1 +1,1 @@
-# search-node
+# node-boilerplate

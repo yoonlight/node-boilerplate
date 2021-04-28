@@ -1,4 +1,4 @@
-const mqLoad = require('./mq');
+const mqLoad = require('./mq')
 
 const loader = async () => {
   await mqLoad()

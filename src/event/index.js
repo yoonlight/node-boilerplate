@@ -1,7 +1,7 @@
 const EventEmitter = require('events')
-const mq = require('./mq');
-const myEmitter = new EventEmitter();
+const mq = require('./mq')
+const myEmitter = new EventEmitter()
 
-myEmitter.on('MQ', mq);
+myEmitter.on('MQ', mq)
 
 module.exports = myEmitter

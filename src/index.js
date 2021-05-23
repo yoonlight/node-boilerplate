@@ -1,13 +1,6 @@
-const express = require('express')
-const router = require('./router')
-const loader = require('./loader')
-const { expressLoader } = require('./loader/express')
+const { start } = require('./loader')
 
-const app = express()
-expressLoader(app)
-app.use('/api', router)
-app.listen(process.env.PORT, () => {
-  console.log('Node App listening on Port: ', process.env.PORT)
-})
+start
 
-loader()
+start.sql.getInstance().check('world!')
+start.sql.getInstance().check()

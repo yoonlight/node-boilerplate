@@ -1,7 +1,9 @@
 const EventEmitter = require('events')
-const mq = require('./mq')
+const { send } = require('./mq')
 const myEmitter = new EventEmitter()
+import sendMail from './mail';
 
-myEmitter.on('MQ', mq)
+myEmitter.on('MQ', send.mq)
+myEmitter.on('Email', sendMail.eventMail)
 
 module.exports = myEmitter

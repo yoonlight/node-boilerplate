@@ -1,7 +1,15 @@
-const mqLoad = require('./mq')
-
-const loader = async () => {
-  await mqLoad()
+const { mq } = require('./mq')
+const { app } = require('./express');
+const { Singleton } = require('./typeorm');
+class Start {
+  sql
+  constructor() {
+    app.listen()
+    this.sql = new Singleton()
+  }
 }
 
-module.exports = loader
+const start = new Start
+module.exports = {
+  start
+};

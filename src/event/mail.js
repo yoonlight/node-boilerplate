@@ -1,50 +1,52 @@
 import nodemailer from 'nodemailer'
 
-// const mail = nodemailer.createTransport({
-//   service: 'gmail',
-//   host: 'smtp.gmail.com',
-//   port: 465,
-//   auth: {
-//     user: process.env.EMAIL_ADDR,
-//     pass: process.env.EMAIL_PWD,
-//   },
-// })
+class SendMail {
+  mail
+  user = process.env.EMAIL_ADDR
+  pass = process.env.EMAIL_PWD
+  message = {
+    // Comma separated list of recipients
+    to: this.user,
 
-// local smtp connect
-const mail = nodemailer.createTransport({
-  host: '127.0.0.1',
-  port: 25,
-  auth: {
-    user: process.env.EMAIL_ADDR,
-    pass: process.env.EMAIL_PWD,
-  },
-})
+    // Subject of the message
+    subject: 'Nodemailer is unicode friendly ✔',
 
-let message = {
-  // Comma separated list of recipients
-  to: process.env.EMAIL_ADDR,
+    // plaintext body
+    text: 'Hello to myself!',
 
-  // Subject of the message
-  subject: 'Nodemailer is unicode friendly ✔',
+    // HTML body
+    html:
+      '<p><b>Hello</b> to myself <img src="cid:note@example.com"/></p>' +
+      '<p>Here\'s a nyan cat for you as an embedded attachment:<br/><img src="cid:nyan@example.com"/></p>',
+  }
 
-  // plaintext body
-  text: 'Hello to myself!',
+  constructor() {
+    this.register()
+  }
 
-  // HTML body
-  html:
-    '<p><b>Hello</b> to myself <img src="cid:note@example.com"/></p>' +
-    '<p>Here\'s a nyan cat for you as an embedded attachment:<br/><img src="cid:nyan@example.com"/></p>',
-}
-
-async function eventMail(msg) {
-  console.log(msg)
-  try {
-    const info = await mail.sendMail(message)
-    console.log('Email sent: ' + info.response)
-    console.log('Delivered message %s', info.messageId)
-  } catch (e) {
-    console.error(e.message)
+  register() {
+    this.mail = nodemailer.createTransport({
+      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 465,
+      auth: {
+        user: this.user,
+        pass: this.pass,
+      },
+    })
+  }
+  async eventMail(msg) {
+    console.log(msg)
+    try {
+      const info = await mail.sendMail(message)
+      console.log('Email sent: ' + info.response)
+      console.log('Delivered message %s', info.messageId)
+    } catch (e) {
+      console.error(e.message)
+    }
   }
 }
 
-export default eventMail
+const sendMail = new SendMail
+
+export default sendMail

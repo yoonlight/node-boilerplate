@@ -1,7 +1,6 @@
-const { getConnection } = require('typeorm')
 class Controller {
-  constructor(entity) {
-    const conn = getConnection()
+  constructor(container, entity) {
+    const conn = container.get('sql').conn
     this.repo = conn.getRepository(entity).createQueryBuilder()
     this.whereQuery = 'id = :id'
   }

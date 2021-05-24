@@ -4,8 +4,9 @@
 
 * RabbitMQ
 * MariaDB
+* Slack
 
-## Framework
+## Library
 
 * TypeDI
 * TypeORM
@@ -14,6 +15,7 @@
 * Babel
 * Passport.js
 * Amqplib
+* Bolt.js
 
 ## Reference
 
@@ -25,7 +27,15 @@
 * [ ] Migrate to TypeScript
 * [ ] Dockerize
 
-## JS DI Disadvantages
+## JS DI Pros & Cons
 
-* can't use intellisense (this is my mistake)
+### Pros
+
+* Avoid Circular Reference
+* IoC!!
+
+### Cons
+
+* can't use intellisense, because my code is very ugly..... :(
+* (There is solution to use intellisense with DI?)
 * can't check type....

@@ -1,21 +1,19 @@
 //@ts-check
+const { useContainer } = require('typeorm');
+const { Container } = require('typedi');
 const { MQ } = require('./mq')
 const { App } = require('./express');
 const { TypeOrm } = require('./typeorm');
+const { Passport } = require('./passport');
 const { Controller } = require('controller');
 const { Model } = require('entity');
 const { Routes, Auth } = require('router');
-const { useContainer } = require('typeorm');
-const { Container } = require('typedi');
-const { Passport } = require('./passport');
 class Start {
   constructor() {
+    this.LoadModule()
   }
 
-  async load() {
-    await this.mq.mqLoad()
-  }
-  async connection() {
+  async LoadModule() {
     try {
       Container.set({ id: 'sql', value: new TypeOrm })
       this.hello = Container.get('sql')
@@ -28,6 +26,7 @@ class Start {
       Container.set({ id: 'Auth', value: new Passport(Container) })
       this.app = Container.get('web')
       this.mq = Container.get('mq')
+      await this.mq.mqLoad()
       this.app.listen()
       useContainer(Container);
     } catch (error) {

@@ -24,3 +24,8 @@
 
 * [ ] Migrate to TypeScript
 * [ ] Dockerize
+
+## JS DI Disadvantages
+
+* can't use intellisense (this is my mistake)
+* can't check type....

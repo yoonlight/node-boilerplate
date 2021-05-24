@@ -21,12 +21,14 @@
 
 [Dependency Injection](https://docs.typestack.community/typedi/usage-without-typescript/usage/02-basic-usage)
 [TyprDI without TS Example](https://github.com/kdsonit/express-ioc-without-typescript)
+[NestJS](https://docs.nestjs.com/)
 
 ## Todo
 
 * [ ] Migrate to TypeScript
+* [ ] Migrate to NestJS
 * [ ] Dockerize
-* [ ] Slack
+* [x] Slack
 
 ## JS DI Pros & Cons
 

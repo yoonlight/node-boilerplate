@@ -7,7 +7,7 @@ const { TypeOrm } = require('./typeorm');
 const { Passport } = require('./passport');
 const { Controller } = require('controller');
 const { Model } = require('entity');
-const { Routes, Auth } = require('router');
+const { Routes } = require('router');
 class Start {
   constructor() {
     this.LoadModule()
@@ -19,7 +19,6 @@ class Start {
       this.hello = Container.get('sql')
       await this.hello.connection()
       Container.set({ id: 'authController', value: new Controller(Container, Model.User) })
-      Container.set({ id: 'AuthRouter', value: new Auth(Container) })
       Container.set({ id: 'router', value: new Routes(Container) })
       Container.set({ id: 'web', value: new App(Container) })
       Container.set({ id: 'mq', value: new MQ })

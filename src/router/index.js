@@ -5,7 +5,7 @@ class Routes {
   router
   constructor(container) {
     this.router = Router()
-    this.auth = container.get('AuthRouter').router
+    this.auth = new Auth(container).router
     this.connection = container.get('sql').conn
     this.router.use('/auth', this.auth)
     this.router.get('/synchronize', async (req, res) => {
@@ -15,6 +15,5 @@ class Routes {
   }
 }
 module.exports = {
-  Auth,
   Routes
 }

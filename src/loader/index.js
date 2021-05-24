@@ -6,11 +6,9 @@ const { Controller } = require('controller');
 const { Model } = require('entity');
 const { Routes, Auth } = require('router');
 const { useContainer } = require('typeorm');
-var Container = require('typedi').Container;
+const { Container } = require('typedi');
 class Start {
   sql
-  app
-  mq
   hello
   constructor() {
     this.sql = new Singleton().getInstance()

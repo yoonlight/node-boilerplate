@@ -1,10 +1,5 @@
-const {
-  Entity,
-  Column
-} = require('typeorm')
-const {
-  Base
-} = require('./base');
+const { Entity, Column } = require('typeorm')
+const { Base } = require('./base');
 @Entity()
 class User extends Base {
   @Column('varchar')

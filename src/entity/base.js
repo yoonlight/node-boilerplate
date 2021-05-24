@@ -1,6 +1,5 @@
-const { Entity, PrimaryGeneratedColumn } = require('typeorm')
+const { PrimaryGeneratedColumn } = require('typeorm')
 
-@Entity()
 class Base {
   @PrimaryGeneratedColumn()
   id = undefined

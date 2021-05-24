@@ -1,5 +1,6 @@
 const { createConnection } = require('typeorm')
 const { SnakeNamingStrategy } = require('typeorm-naming-strategies')
+const { config } = require('lib');
 class TypeOrm {
   conn
   title = 'hello world!'
@@ -26,12 +27,12 @@ class TypeOrm {
 
   async connection() {
     this.conn = await createConnection({
-      type: process.env.DB_TYPE,
-      host: process.env.MYSQL_URL,
-      port: process.env.MYSQL_PORT,
-      username: process.env.MYSQL_USER,
-      password: process.env.MYSQL_PASS,
-      database: process.env.MYSQL_NAME,
+      type: config.DB_TYPE,
+      host: config.MYSQL_HOST,
+      port: config.MYSQL_PORT,
+      username: config.MYSQL_USER,
+      password: config.MYSQL_PASS,
+      database: config.MYSQL_NAME,
       logging: true,
       namingStrategy: new SnakeNamingStrategy(),
       entities: ['src/entity/*.js'],

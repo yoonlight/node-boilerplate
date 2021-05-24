@@ -1,9 +1,10 @@
-import nodemailer from 'nodemailer'
+const nodemailer = require('nodemailer');
+const { config } = require('lib');
 
 class SendMail {
   mail
-  user = process.env.EMAIL_ADDR
-  pass = process.env.EMAIL_PWD
+  user = config.EMAIL_ADDR
+  pass = config.EMAIL_PWD
   message = {
     // Comma separated list of recipients
     to: this.user,
@@ -49,4 +50,6 @@ class SendMail {
 
 const sendMail = new SendMail
 
-export default sendMail
+module.exports = {
+  sendMail
+};

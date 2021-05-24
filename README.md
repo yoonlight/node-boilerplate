@@ -26,6 +26,7 @@
 
 * [ ] Migrate to TypeScript
 * [ ] Dockerize
+* [ ] Slack
 
 ## JS DI Pros & Cons
 

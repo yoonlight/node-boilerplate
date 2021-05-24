@@ -7,33 +7,6 @@ class Auth {
   constructor(container) {
     this.router = Router()
     this.query = container.get('authController')
-    this.router.get('/', async (req, res, next) => {
-      try {
-        const q = req.query
-        const result = await this.query.list(q)
-        res.json(result)
-      } catch (error) {
-        console.error(error)
-      }
-    })
-
-    this.router.get('/profile/:id',
-      passport.authenticate('jwt', {
-        failureRedirect: '/api/auth/fail'
-      }),
-      async (req, res, next) => {
-        const headers = req.headers.authorization
-        if (headers) {
-          console.log(headers);
-        }
-        try {
-          const result = await this.query.get(req.params.id)
-          res.json(result)
-        } catch (error) {
-          console.log(error)
-        }
-      })
-
     this.router.post(
       '/login',
       passport.authenticate('local', {

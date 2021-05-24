@@ -12,18 +12,18 @@ class SendMQ {
 
   async mq(body) {
     try {
-      const conn = await open
+      const conn = await this.open
       const ch = await conn.createChannel()
-      let ok = ch.assertQueue(q)
+      let ok = ch.assertQueue(this.q)
       ok = ok.then(() => {
-        return ch.sendToQueue(q, Buffer.from(body))
+        return ch.sendToQueue(this.q, Buffer.from(body))
       })
     } catch (error) {
       console.warn(error)
     }
   }
 }
-const send = new SendMQ
+const send = new SendMQ()
 module.exports = {
   send
 };

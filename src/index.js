@@ -1,9 +1,6 @@
 const { start } = require('./loader')
 
 start
-const connection = start.sql
-connection.setData('world!')
-console.log(connection.getData());
 
 async function name() {
   try {

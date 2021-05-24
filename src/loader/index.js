@@ -1,17 +1,15 @@
 //@ts-check
 const { MQ } = require('./mq')
 const { App } = require('./express');
-const { Singleton, TypeOrm } = require('./typeorm');
+const { TypeOrm } = require('./typeorm');
 const { Controller } = require('controller');
 const { Model } = require('entity');
 const { Routes, Auth } = require('router');
 const { useContainer } = require('typeorm');
 const { Container } = require('typedi');
+const { Passport } = require('./passport');
 class Start {
-  sql
-  hello
   constructor() {
-    this.sql = new Singleton().getInstance()
   }
 
   async load() {
@@ -19,18 +17,19 @@ class Start {
   }
   async connection() {
     try {
-      await this.sql.connection()
-      useContainer(Container);
       Container.set({ id: 'sql', value: new TypeOrm })
+      this.hello = Container.get('sql')
+      await this.hello.connection()
       Container.set({ id: 'authController', value: new Controller(Container, Model.User) })
       Container.set({ id: 'AuthRouter', value: new Auth(Container) })
       Container.set({ id: 'router', value: new Routes(Container) })
       Container.set({ id: 'web', value: new App(Container) })
       Container.set({ id: 'mq', value: new MQ })
+      Container.set({ id: 'Auth', value: new Passport(Container) })
       this.app = Container.get('web')
       this.mq = Container.get('mq')
-      this.hello = Container.get('sql')
       this.app.listen()
+      useContainer(Container);
     } catch (error) {
       console.log(error);
     }

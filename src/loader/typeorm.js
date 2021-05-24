@@ -40,18 +40,6 @@ class TypeOrm {
 
 }
 
-class Singleton {
-  constructor() {
-    if (!Singleton.instance) {
-      Singleton.instance = new TypeOrm();
-    }
-  }
-  getInstance() {
-    return Singleton.instance;
-  }
-}
-
 module.exports = {
   TypeOrm,
-  Singleton,
 }

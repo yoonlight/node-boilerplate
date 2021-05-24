@@ -23,3 +23,4 @@
 ## Todo
 
 * [ ] Migrate to TypeScript
+* [ ] Dockerize

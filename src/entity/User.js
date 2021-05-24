@@ -1,10 +1,12 @@
-const { Entity, PrimaryGeneratedColumn, Column } = require('typeorm')
-
+const {
+  Entity,
+  Column
+} = require('typeorm')
+const {
+  Base
+} = require('./base');
 @Entity()
-class User {
-  @PrimaryGeneratedColumn()
-  id = undefined
-
+class User extends Base {
   @Column('varchar')
   username = ''
 

@@ -6,7 +6,11 @@ class App {
   app = express()
   port = process.env.PORT
   constructor() {
-    this.middleware()
+    if (!App.instance) {
+      this.middleware()
+      App.instance = this;
+    }
+    return App.instance    
   }
 
   middleware() {
@@ -25,8 +29,9 @@ class App {
   }
 }
 
-const app = new App;
+// const app = new App;
 
 module.exports = {
-  app,
+  App
+  // app,
 }

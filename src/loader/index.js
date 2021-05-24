@@ -1,20 +1,32 @@
-const { mq } = require('./mq')
-const { app } = require('./express');
+const { MQ } = require('./mq')
+const { App } = require('./express');
 const { Singleton, TypeOrm } = require('./typeorm');
+import { useContainer as typeOrmUseContainer } from 'typeorm';
+var Container = require('typedi').Container;
 class Start {
   sql
-  isConnected = false
+  app
+  mq
+  hello
   constructor() {
-    app.listen()
+    // app.listen()
     this.sql = new Singleton().getInstance()
   }
-
+  
+  async load() {
+    await this.mq.mqLoad()
+  }
   async connection() {
     try {
-
-      const value = await this.sql.connection()
-      console.log(value);
-      this.isConnected = value
+      await this.sql.connection()
+      typeOrmUseContainer(Container);
+      Container.set('web', new App)
+      Container.set('mq', new MQ)
+      Container.set('sql', new TypeOrm)
+      this.app = Container.get('web')
+      this.mq = Container.get('mq')
+      this.hello = Container.get('sql')
+      this.app.listen()
     } catch (error) {
       console.log(error);
     }
@@ -24,5 +36,4 @@ class Start {
 const start = new Start
 module.exports = {
   start,
-  TypeOrm
 };

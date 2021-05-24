@@ -3,20 +3,23 @@ const amqp = require('amqplib')
 class MQ {
   q = 'tasks'
   host = process.env.RABBITMQ_URL
-  // use singleton pattern 
   constructor(queue) {
     if (queue != null) {
       this.q = queue
     }
-    this.open = amqp.connect(this.host)
+    if (!MQ.instance) {
+      this.open = amqp.connect(this.host)
+      MQ.instance = this;
+    }
+    return MQ.instance
   }
   async mqLoad() {
     try {
       const conn = await this.open
       const ch = await conn.createChannel()
-      let ok = ch.assertQueue(q)
+      let ok = ch.assertQueue(this.q)
       ok = ok.then(() => {
-        return ch.consume(q, function (msg) {
+        return ch.consume(this.q, function (msg) {
           if (msg !== null) {
             console.log(' [x] %s', msg.content.toString())
             ch.ack(msg)
@@ -32,8 +35,6 @@ class MQ {
   }
 }
 
-const mq = new MQ
-
 module.exports = {
-  mq
+  MQ
 };

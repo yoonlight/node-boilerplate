@@ -2,7 +2,7 @@ const amqp = require('amqplib')
 
 class MQ {
   q = 'tasks'
-  host = process.env.MQ_URL
+  host = process.env.RABBITMQ_URL
   // use singleton pattern 
   constructor(queue) {
     if (queue != null) {

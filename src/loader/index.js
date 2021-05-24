@@ -1,6 +1,6 @@
 const { mq } = require('./mq')
 const { app } = require('./express');
-const { Singleton } = require('./typeorm');
+const { Singleton, TypeOrm } = require('./typeorm');
 class Start {
   sql
   isConnected = false
@@ -23,5 +23,6 @@ class Start {
 
 const start = new Start
 module.exports = {
-  start
+  start,
+  TypeOrm
 };

@@ -4,24 +4,34 @@ class TypeOrm {
   conn
   title = 'hello world!'
   constructor() {
-    this.check()
-  }
-  check(value) {
-    if (value != null) {
-      this.title = value
-
+    if (!TypeOrm.instance) {
+      this._cache = []
+      TypeOrm.instance = this;
     }
-    console.log(this.title);
+
+    return TypeOrm.instance
   }
+
+  setData(a) {
+    this._cache.push(a)
+  }
+
+  getData() {
+    return this._cache
+  }
+
+  getConnection() {
+    return this.conn
+  }
+
   async connection() {
     this.conn = await createConnection({
-      type: 'mysql',
+      type: process.env.DB_TYPE,
       host: process.env.MYSQL_URL,
       port: process.env.MYSQL_PORT,
       username: process.env.MYSQL_USER,
       password: process.env.MYSQL_PASS,
       database: process.env.MYSQL_NAME,
-      // synchronize: true,
       logging: true,
       namingStrategy: new SnakeNamingStrategy(),
       entities: ['src/entity/*.js'],
@@ -42,5 +52,6 @@ class Singleton {
 }
 
 module.exports = {
+  TypeOrm,
   Singleton,
 }

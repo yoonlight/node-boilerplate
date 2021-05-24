@@ -4,6 +4,20 @@ const { Model } = require('../entity')
 const LocalStrategy = require('passport-local')
 const { Controller } = require('../controller')
 
+class Passport {
+  JwtStrategy = passportJWT.Strategy
+  ExtractJwt = passportJWT.ExtractJwt
+  opts = {
+    jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey = process.env.SERVER_SECRET_KEY
+  }
+  constructor(app) {
+    this.app = app
+    //use dependency injection
+    this.ctrl = new Controller(Model.User)
+  }
+}
+
 const authorization = async (app) => {
   let crtl = new Controller(Model.User)
   const JwtStrategy = passportJWT.Strategy

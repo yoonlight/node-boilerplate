@@ -1,7 +1,7 @@
 const amqp = require('amqplib')
 
 class SendMQ {
-  host = process.env.MQ_URL
+  host = process.env.RABBITMQ_URL
   open = amqp.connect(this.host)
   q = 'tasks'
   constructor(queue) {

@@ -26,10 +26,11 @@
 
 ## Todo
 
-* [ ] Migrate to TypeScript
-* [ ] Migrate to NestJS
+* [ ] Migrate to TypeScript (continuing...)
+* [ ] Migrate to NestJS (continuing...)
 * [ ] Dockerize
 * [x] Slack
+* [ ] verify account to send email (& found lost pwd)
 
 ## JS DI Pros & Cons
 

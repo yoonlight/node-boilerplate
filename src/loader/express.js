@@ -21,7 +21,11 @@ class App {
     this.app.use(express.json())
     this.app.use(morgan('dev'))
     console.log('Complete Express Module Register')
+  }
+  // passport initialize 후에 등록되어야 함!
+  registerRouter() {
     this.app.use('/api', this.router)
+    console.log('Complete Express Router Register')
   }
 
   listen() {

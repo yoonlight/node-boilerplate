@@ -24,6 +24,7 @@ class Start {
       Container.set({ id: 'mq', value: new MQ })
       Container.set({ id: 'Auth', value: new Passport(Container) })
       this.app = Container.get('web')
+      this.app.registerRouter()
       this.mq = Container.get('mq')
       await this.mq.mqLoad()
       this.app.listen()

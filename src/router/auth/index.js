@@ -13,6 +13,10 @@ class Auth {
         failureRedirect: 'fail'
       }),
       (req, res) => {
+        if (!req.body.isActivate) {
+          res.status(401).send("this account can't access")
+          return
+        }
         const user = req.user
         const ip = req.headers['x-real-ip'] || req.socket.remoteAddress;
         const option = {

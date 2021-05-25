@@ -13,6 +13,9 @@ class User extends Base {
 
   @Column('varchar')
   role = ''
+
+  @Column({type: 'boolean', default: false})
+  isActivate = false
 }
 
 module.exports = {

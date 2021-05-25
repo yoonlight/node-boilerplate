@@ -87,7 +87,8 @@ class Auth {
       uid: user.id
     }, secretOrKey, option)
     // @ts-ignore
-    myEmitter.emit('MQ', `${user.username}(${ip}) Login Success!`)
+    const message = { title: 'Login', text: `${user.username}(${ip}) Login Success!` }
+    myEmitter.emit('Slack', message)
     res.json({
       userInfo: user,
       accessToken: token

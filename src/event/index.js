@@ -7,8 +7,15 @@ myEmitter.on('MQ', async (msg) => {
   await send.mq(msg)
 })
 myEmitter.on('Email', sendMail.eventMail)
-myEmitter.on('Slack', async (msg) => {
-  await slack.sendMessage(msg)
-})
+myEmitter.on('Slack',
+  /**
+   * @param {object} msg
+   * @param {string} msg.title 
+   * @param {string} msg.text 
+   */
+  async (msg) => {
+    await slack.sendMessage(msg)
+  }
+)
 
 module.exports = myEmitter

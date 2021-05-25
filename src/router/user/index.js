@@ -36,7 +36,7 @@ class User {
     try {
       const q = req.query
       const result = await this.query.list(q)
-      myEmitter.emit('Slack', result)
+      myEmitter.emit('Slack', result[1])
       myEmitter.emit('MQ', result)
       res.json(result)
     } catch (error) {
@@ -54,9 +54,6 @@ class User {
       console.log(headers);
     }
     try {
-      /**
-       * @return 
-       */
       const result = await this.query.get(req.params.id)
       res.json(result)
     } catch (error) {

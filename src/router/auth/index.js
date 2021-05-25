@@ -12,23 +12,8 @@ class Auth {
       passport.authenticate('local', {
         failureRedirect: 'fail'
       }),
-      (req, res) => {
-        if (!req.body.isActivate) {
-          res.status(401).send("this account can't access")
-          return
-        }
-        const user = req.user
-        const ip = req.headers['x-real-ip'] || req.socket.remoteAddress;
-        const option = {
-          expiresIn: '5m'
-        }
-        const secretOrKey = process.env.SERVER_SECRET_KEY
-        const token = jwt.sign({
-          uid: user.id
-        }, secretOrKey, option)
-        myEmitter.emit('MQ', `${user.username}(${ip}) Login Success!`)
-        res.json(token)
-      }
+      this.isActivate,
+      this.login
     )
 
     this.router.get('/logout', (req, res) => {
@@ -50,6 +35,32 @@ class Auth {
       } catch (error) {
         next(error)
       }
+    })
+  }
+  
+  isActivate(req, res, next) {
+    const user = req.user
+    if (!user.isActivate) {
+      res.status(401).send("this account can't access")
+      return
+    }
+    next()
+  }
+
+  login(req, res) {
+    const user = req.user
+    const ip = req.headers['x-real-ip'] || req.socket.remoteAddress;
+    const option = {
+      expiresIn: '5m'
+    }
+    const secretOrKey = process.env.SERVER_SECRET_KEY
+    const token = jwt.sign({
+      uid: user.id
+    }, secretOrKey, option)
+    myEmitter.emit('MQ', `${user.username}(${ip}) Login Success!`)
+    res.json({
+      userInfo: user,
+      accessToken: token
     })
   }
 }

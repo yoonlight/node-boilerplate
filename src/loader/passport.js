@@ -31,7 +31,6 @@ class Passport {
       new LocalStrategy(async (username, password, done) => {
         try {
           const user = await this.ctrl.get({ username: username })
-          console.log(user);
           if (!user) {
             return done(null, false, { message: 'Incorrect username.' })
           }
@@ -59,7 +58,7 @@ class Passport {
     })
     this.app.use(passport.initialize())
     this.app.use(passport.session())
-    console.log('Authorization Register')
+    console.log('Complete Authorization Register')
   }
 }
 

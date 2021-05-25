@@ -32,7 +32,7 @@
 * [x] Slack
 * [x] check activated account
 * [ ] verify account to send email (& found lost pwd)
-* [ ] TypeCheck
+* [x] TypeCheck
 
 ## JS DI Pros & Cons
 
@@ -43,6 +43,6 @@
 
 ### Cons
 
-* can't use intellisense, because my code is very ugly..... :(
+* can't use intellisense, because my code is very ugly..... :( -> use type check!
 * (There is solution to use intellisense with DI?)
 * can't check type....

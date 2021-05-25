@@ -30,7 +30,9 @@
 * [ ] Migrate to NestJS (continuing...)
 * [ ] Dockerize
 * [x] Slack
+* [x] check activated account
 * [ ] verify account to send email (& found lost pwd)
+* [ ] TypeCheck
 
 ## JS DI Pros & Cons
 

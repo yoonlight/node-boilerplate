@@ -16,6 +16,9 @@ class Start {
   async LoadModule() {
     try {
       Container.set({ id: 'sql', value: new TypeOrm })
+      /**
+       * @type {TypeOrm}
+       */
       this.hello = Container.get('sql')
       await this.hello.connection()
       Container.set({ id: 'authController', value: new Controller(Container, Model.User) })
@@ -23,8 +26,14 @@ class Start {
       Container.set({ id: 'web', value: new App(Container) })
       Container.set({ id: 'mq', value: new MQ })
       Container.set({ id: 'Auth', value: new Passport(Container) })
+      /**
+       * @type {App}
+       */
       this.app = Container.get('web')
       this.app.registerRouter()
+      /**
+       * @type {MQ}
+       */
       this.mq = Container.get('mq')
       await this.mq.mqLoad()
       this.app.listen()

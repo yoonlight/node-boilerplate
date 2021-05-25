@@ -1,11 +1,21 @@
+// @ts-check
+
 const passport = require('passport')
-const { Router } = require('express')
+const { Router, Request, Response, NextFunction } = require('express')
 const myEmitter = require('event')
+const { Container } = require('typedi');
+const { Controller } = require('controller');
 
 class User {
   router
+  /**
+   * @param {Container} container
+   */
   constructor(container) {
     this.router = Router()
+    /**
+     * @type {Controller}
+     */
     this.query = container.get('authController')
     this.router.get('/', this.list)
 
@@ -18,7 +28,10 @@ class User {
 
     this.router.patch('/:id', this.updateProfile)
   }
-
+  /**
+  * @param {Request} req
+  * @param {Response} res
+  */
   list = async (req, res) => {
     try {
       const q = req.query
@@ -30,20 +43,30 @@ class User {
       console.error(error)
     }
   }
-
+  /**
+  * @param {Request} req
+  * @param {Response} res
+  * @param {NextFunction} next
+  */
   getProfile = async (req, res, next) => {
     const headers = req.headers.authorization
     if (headers) {
       console.log(headers);
     }
     try {
+      /**
+       * @return 
+       */
       const result = await this.query.get(req.params.id)
       res.json(result)
     } catch (error) {
       console.log(error)
     }
   }
-
+  /**
+  * @param {Request} req
+  * @param {Response} res
+  */
   updateProfile = async (req, res) => {
     const body = req.body
     const id = req.params.id

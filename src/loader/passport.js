@@ -1,9 +1,9 @@
+// @ts-check
 const passportJWT = require('passport-jwt')
 const passport = require('passport')
-const { Model } = require('../entity')
 const LocalStrategy = require('passport-local')
 const { Controller } = require('../controller')
-
+const { Express } = require('express');
 class Passport {
   JwtStrategy = passportJWT.Strategy
   ExtractJwt = passportJWT.ExtractJwt
@@ -12,8 +12,13 @@ class Passport {
     secretOrKey: process.env.SERVER_SECRET_KEY
   }
   constructor(container) {
-
+    /**
+     * @type {Express}
+     */
     this.app = container.get('web').app
+    /**
+    * @type {Controller}
+    */
     this.ctrl = container.get('authController')
     passport.use(
       new this.JwtStrategy(this.opts, async (jwt_payload, done) => {
@@ -43,7 +48,6 @@ class Passport {
         }
       })
     )
-
     passport.serializeUser(function (user, done) {
       done(null, user.id)
     })

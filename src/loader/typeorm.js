@@ -1,9 +1,12 @@
-const { createConnection } = require('typeorm')
+const { createConnection, Connection } = require('typeorm')
 const { SnakeNamingStrategy } = require('typeorm-naming-strategies')
 const { config } = require('lib');
 const sqlite3 = require('sqlite3')
 
 class TypeOrm {
+  /**
+   * @type {Connection}
+    */
   conn
   title = 'hello world!'
   constructor() {

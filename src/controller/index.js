@@ -1,5 +1,14 @@
+const { default: Container } = require("typedi")
+const {Connection} = require('typeorm');
 class Controller {
+  /**
+   * 
+   * @param {Container} container 
+   */
   constructor(container, entity) {
+    /**
+     * @type {Connection}
+     */
     const conn = container.get('sql').conn
     this.repo = conn.getRepository(entity).createQueryBuilder()
     this.whereQuery = 'id = :id'

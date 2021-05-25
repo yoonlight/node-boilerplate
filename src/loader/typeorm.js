@@ -1,4 +1,4 @@
-const { createConnection, Connection } = require('typeorm')
+const { createConnection, Connection, ConnectionOptions } = require('typeorm')
 const { SnakeNamingStrategy } = require('typeorm-naming-strategies')
 const { config } = require('lib');
 const sqlite3 = require('sqlite3')
@@ -31,6 +31,14 @@ class TypeOrm {
   }
 
   async connection() {
+    /**
+     * @type {ConnectionOptions}
+     */
+    var dbConfig = {
+      logging: true,
+      namingStrategy: new SnakeNamingStrategy(),
+      entities: ['src/entity/*.js'],
+    }
     if (config.DB_TYPE !== 'mysql') {
       let db = new sqlite3.Database("../mydb.sqlite3", (err) => {
         if (err) {
@@ -39,27 +47,29 @@ class TypeOrm {
           console.log('Database created!')
         }
       })
-      this.conn = await createConnection({
-        type: config.DB_TYPE,
+      /**
+ * @type {ConnectionOptions}
+ */
+      let sqlite = {
+        type: 'sqlite',
         database: config.SQLITE_PATH,
-        logging: true,
-        namingStrategy: new SnakeNamingStrategy(),
-        entities: ['src/entity/*.js'],
-      })
+      }
+      Object.assign(dbConfig, sqlite);
     } else {
-      this.conn = await createConnection({
+      /**
+ * @type {ConnectionOptions}
+ */
+      let mariadb = {
         type: config.DB_TYPE,
         host: config.MYSQL_HOST,
         port: config.MYSQL_PORT,
         username: config.MYSQL_USER,
         password: config.MYSQL_PASS,
         database: config.MYSQL_NAME,
-        logging: true,
-        namingStrategy: new SnakeNamingStrategy(),
-        entities: ['src/entity/*.js'],
-      })
-
+      }
+      Object.assign(dbConfig, mariadb);
     }
+    this.conn = await createConnection(dbConfig)
   }
 }
 

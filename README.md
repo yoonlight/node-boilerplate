@@ -44,5 +44,9 @@
 ### Cons
 
 * can't use intellisense, because my code is very ugly..... :( -> use type check!
-* (There is solution to use intellisense with DI?)
+* (There is solution to use intellisense with DI?) -> use JSDOC
 * can't check type....
+
+## Slack Documentaion
+
+* [Post Message](https://api.slack.com/methods/chat.postMessage)

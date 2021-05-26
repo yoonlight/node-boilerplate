@@ -22,7 +22,8 @@ class Controller {
     const pageNum = query.pageNum | 0
     const pageCount = query.pageCount | 5
     const offset = pageNum * pageCount
-    return await this.repo.limit(pageCount).offset(offset).getManyAndCount()
+    const result = await this.repo.limit(pageCount).offset(offset).getManyAndCount() 
+    return result
   }
 
   async add(body) {

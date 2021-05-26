@@ -36,7 +36,11 @@ class User {
     try {
       const q = req.query
       const result = await this.query.list(q)
-      myEmitter.emit('Slack', result[1])
+      const message = {
+        title: 'Action',
+        text: 'Check User List'
+      }
+      myEmitter.emit('Slack', message)
       myEmitter.emit('MQ', result)
       res.json(result)
     } catch (error) {

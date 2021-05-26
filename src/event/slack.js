@@ -2,9 +2,9 @@ const { WebClient, ChatPostMessageArguments } = require('@slack/web-api');
 const { config } = require('lib');
 const { block } = require('skill');
 class Slack {
-  token = config.SLACK_TOKEN;
-  convoId = config.SLACK_CONVERSATION_ID;
   constructor() {
+    this.token = config.SLACK_TOKEN;
+    this.convoId = config.SLACK_CONVERSATION_ID;
     this.web = new WebClient(this.token);
   }
   /**
@@ -25,7 +25,7 @@ class Slack {
       const res = await this.web.chat.postMessage(arg);
       console.log('Message sent: ', res.ts);
     } catch (error) {
-      console.log(error.data);
+      console.log(error);
     }
   }
 }
